@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <table width="600px" border="1px" cellpadding="2px" cellspacing="3px">
+       <thead>
+         <tr>
+             <th>品类</th>
+             <th>点击数量</th>
+             <th>下单数量</th>
+             <th>支付数量</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr th:each="category:${list}">
+             <td th:text="${category.categoryId}"></td>
+             <td th:text="${category.clickCount}"></td>
+             <td th:text="${category.orderCount}"></td>
+             <td th:text="${category.payCount}"></td>
+         </tr>
+       </tbody>
+   </table>
+</body>
+</html>

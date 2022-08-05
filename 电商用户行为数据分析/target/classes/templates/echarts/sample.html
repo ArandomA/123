@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+</head>
+<body>
+     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+     <div id="main" style="width: 600px;height:400px;"></div>
+     <script>
+         // 基于准备好的dom，初始化echarts实例
+         var myChart = echarts.init(document.getElementById('main'));
+
+         // 指定图表的配置项和数据
+         option = {
+             xAxis: {
+                 type: 'category',
+                 data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+             },
+             yAxis: {
+                 type: 'value'
+             },
+             series: [
+                 {
+                     data: [
+                         120,
+                         {
+                             value: 200,
+                             itemStyle: {
+                                 color: '#a90000'
+                             }
+                         },
+                         150,
+                         80,
+                         70,
+                         110,
+                         130
+                     ],
+                     type: 'bar'
+                 }
+             ]
+         };
+         // 使用刚指定的配置项和数据显示图表。
+         myChart.setOption(option);
+         myChart.on('mouseover',function (params) {
+             console.log(params)
+         })
+         myChart.on('legendselectchanged',function (params) {
+             console.log(params)
+         })
+     </script>
+</body>
+</html>

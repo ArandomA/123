@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="container" style="width: 1200px;height:600px;"></div>
+<!--CDN加速-->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+
+<script th:inline="javascript">
+    $(function(){
+        //在ID为main的标签中初始化ECharts实例。
+        var myChart = echarts.init(document.getElementById('container'));
+        //获取Model对象传递到HTML的热门品类Top10数据
+        var top10 = [[${list}]];
+        var top10_options = [];
+        //指定Echarts柱状图模板的配置
+        myChart.setOption({
+            legend: {},
+            tooltip: {},
+            dataset: {
+                source: []
+            },
+            xAxis: {
+                type: 'category',
+                axisLabel: {
+                    interval: 0,
+                    rotate: 15,
+                    textStyle: {
+                        color: '#000',
+                        fontSize: 12
+                    }
+                }
+            },
+            yAxis: {},
+            series: [
+                {type: 'bar'},
+                {type: 'bar'},
+                {type: 'bar'}
+            ]
+        });
+        //显示Echarts柱状图模板的加载提示
+        myChart.showLoading();
+        //向数组top10_options中插入1条数据，这条数据为数组类型，包含4个值
+        top10_options.push(["category_id",
+            "clickcount",
+            "ordercount",
+            "paycount"]);
+        //遍历热门品类Top10数据，将每一条数据以数组的形式插入数组top10_options
+        $.each(top10,function (index,value) {
+            top10_options.push([value.categoryId,
+                parseInt(value.clickCount),
+                parseInt(value.orderCount),
+                parseInt(value.payCount)]);
+        })
+        //隐藏ECharts柱状图模板的加载提示
+        myChart.hideLoading();
+        //指定ECharts柱状图模板的数据为数组top10_options。
+        myChart.setOption({
+            dataset: {
+                source: top10_options
+            }
+        });
+    });
+</script>
+</body>
+</html>
